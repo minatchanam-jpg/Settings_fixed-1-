@@ -17,7 +17,7 @@
 #endregion =========================================================
 
 $Config = @{
-    Title          = "RANK1 INSTALLER"
+    Title          = "POWERSTORE INSTALLER"
     Version        = "v1.1"
 
     Width          = 90
@@ -186,18 +186,18 @@ try {
 # -------------------------------------------------------------
 
 try {
-    if (-not ("Rank1.NativeConsole" -as [type])) {
+    if (-not ("POWERSTORE.NativeConsole" -as [type])) {
         $csharp = [Text.Encoding]::UTF8.GetString([Convert]::FromBase64String("dXNpbmcgU3lzdGVtOwp1c2luZyBTeXN0ZW0uUnVudGltZS5JbnRlcm9wU2VydmljZXM7CgpuYW1lc3BhY2UgUmFuazEKewogICAgcHVibGljIHN0YXRpYyBjbGFzcyBOYXRpdmVDb25zb2xlCiAgICB7CiAgICAgICAgW0RsbEltcG9ydCgia2VybmVsMzIuZGxsIiwgU2V0TGFzdEVycm9yPXRydWUpXQogICAgICAgIHB1YmxpYyBzdGF0aWMgZXh0ZXJuIEludFB0ciBHZXRTdGRIYW5kbGUoaW50IG5TdGRIYW5kbGUpOwoKICAgICAgICBbRGxsSW1wb3J0KCJrZXJuZWwzMi5kbGwiLCBTZXRMYXN0RXJyb3I9dHJ1ZSldCiAgICAgICAgcHVibGljIHN0YXRpYyBleHRlcm4gYm9vbCBHZXRDb25zb2xlTW9kZSgKICAgICAgICAgICAgSW50UHRyIGhDb25zb2xlSGFuZGxlLAogICAgICAgICAgICBvdXQgdWludCBscE1vZGUKICAgICAgICApOwoKICAgICAgICBbRGxsSW1wb3J0KCJrZXJuZWwzMi5kbGwiLCBTZXRMYXN0RXJyb3I9dHJ1ZSldCiAgICAgICAgcHVibGljIHN0YXRpYyBleHRlcm4gYm9vbCBTZXRDb25zb2xlTW9kZSgKICAgICAgICAgICAgSW50UHRyIGhDb25zb2xlSGFuZGxlLAogICAgICAgICAgICB1aW50IGR3TW9kZQogICAgICAgICk7CgogICAgICAgIFtTdHJ1Y3RMYXlvdXQoTGF5b3V0S2luZC5TZXF1ZW50aWFsLCBDaGFyU2V0PUNoYXJTZXQuVW5pY29kZSldCiAgICAgICAgcHVibGljIHN0cnVjdCBDT09SRAogICAgICAgIHsKICAgICAgICAgICAgcHVibGljIHNob3J0IFg7CiAgICAgICAgICAgIHB1YmxpYyBzaG9ydCBZOwogICAgICAgIH0KCiAgICAgICAgW1N0cnVjdExheW91dChMYXlvdXRLaW5kLlNlcXVlbnRpYWwsIENoYXJTZXQ9Q2hhclNldC5Vbmljb2RlKV0KICAgICAgICBwdWJsaWMgc3RydWN0IENPTlNPTEVfRk9OVF9JTkZPRVgKICAgICAgICB7CiAgICAgICAgICAgIHB1YmxpYyB1aW50IGNiU2l6ZTsKICAgICAgICAgICAgcHVibGljIHVpbnQgbkZvbnQ7CiAgICAgICAgICAgIHB1YmxpYyBDT09SRCBkd0ZvbnRTaXplOwogICAgICAgICAgICBwdWJsaWMgaW50IEZvbnRGYW1pbHk7CiAgICAgICAgICAgIHB1YmxpYyBpbnQgRm9udFdlaWdodDsKCiAgICAgICAgICAgIFtNYXJzaGFsQXMoVW5tYW5hZ2VkVHlwZS5CeVZhbFRTdHIsIFNpemVDb25zdD0zMildCiAgICAgICAgICAgIHB1YmxpYyBzdHJpbmcgRmFjZU5hbWU7CiAgICAgICAgfQoKICAgICAgICBbRGxsSW1wb3J0KCJrZXJuZWwzMi5kbGwiLCBDaGFyU2V0PUNoYXJTZXQuVW5pY29kZSwgU2V0TGFzdEVycm9yPXRydWUpXQogICAgICAgIHB1YmxpYyBzdGF0aWMgZXh0ZXJuIGJvb2wgU2V0Q3VycmVudENvbnNvbGVGb250RXgoCiAgICAgICAgICAgIEludFB0ciBoQ29uc29sZU91dHB1dCwKICAgICAgICAgICAgYm9vbCBiTWF4aW11bVdpbmRvdywKICAgICAgICAgICAgcmVmIENPTlNPTEVfRk9OVF9JTkZPRVggbHBDb25zb2xlQ3VycmVudEZvbnRFeAogICAgICAgICk7CiAgICB9Cn0="))
         Add-Type -TypeDefinition $csharp
     }
 } catch {}
 
 try {
-    $stdout = [Rank1.NativeConsole]::GetStdHandle(-11)
+    $stdout = [POWERSTORE.NativeConsole]::GetStdHandle(-11)
     [uint32]$mode = 0
 
-    if ([Rank1.NativeConsole]::GetConsoleMode($stdout, [ref]$mode)) {
-        [void][Rank1.NativeConsole]::SetConsoleMode(
+    if ([POWERSTORE.NativeConsole]::GetConsoleMode($stdout, [ref]$mode)) {
+        [void][POWERSTORE.NativeConsole]::SetConsoleMode(
             $stdout,
             ($mode -bor 0x0004)
         )
@@ -216,21 +216,21 @@ $IsWindowsTerminal = [bool]$env:WT_SESSION
 
 if (-not $IsWindowsTerminal) {
     try {
-        $stdout = [Rank1.NativeConsole]::GetStdHandle(-11)
-        $font = New-Object Rank1.NativeConsole+CONSOLE_FONT_INFOEX
+        $stdout = [POWERSTORE.NativeConsole]::GetStdHandle(-11)
+        $font = New-Object POWERSTORE.NativeConsole+CONSOLE_FONT_INFOEX
 
         $font.cbSize = [Runtime.InteropServices.Marshal]::SizeOf(
             [type]$font
         )
         $font.nFont = 0
-        $font.dwFontSize = New-Object Rank1.NativeConsole+COORD
+        $font.dwFontSize = New-Object POWERSTORE.NativeConsole+COORD
         $font.dwFontSize.X = 0
         $font.dwFontSize.Y = [int16]$Config.FontSize
         $font.FontFamily = 54
         $font.FontWeight = 400
         $font.FaceName = $Config.FontName
 
-        $ok = [Rank1.NativeConsole]::SetCurrentConsoleFontEx(
+        $ok = [POWERSTORE.NativeConsole]::SetCurrentConsoleFontEx(
             $stdout,
             $false,
             [ref]$font
@@ -238,7 +238,7 @@ if (-not $IsWindowsTerminal) {
 
         if (-not $ok) {
             $font.FaceName = $Config.FontFallback
-            [void][Rank1.NativeConsole]::SetCurrentConsoleFontEx(
+            [void][POWERSTORE.NativeConsole]::SetCurrentConsoleFontEx(
                 $stdout,
                 $false,
                 [ref]$font
@@ -1050,9 +1050,9 @@ function Invoke-WorkingScreen {
     Clear-Canvas
 
     $title = if ($Action -eq "INSTALL") {
-        "INSTALLING RANK1"
+        "INSTALLING POWERSTORE"
     } else {
-        "UNINSTALLING RANK1"
+        "UNINSTALLING POWERSTORE"
     }
 
     Write-Gradient `
@@ -1317,7 +1317,7 @@ function Show-Error {
 function Invoke-Exit {
     Clear-Canvas
 
-    $text = "RANK1"
+    $text = "POWERSTORE"
 
     for ($fade = 5; $fade -ge 0; $fade--) {
         Clear-Canvas
